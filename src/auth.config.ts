@@ -1,11 +1,11 @@
 import type { NextAuthConfig } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
-import dbConnect from "./lib/dbConnect";
 import { LoginSchema } from "./schema/LoginSchema";
 import { getUserByEmail } from "@/utils/user";
 import Github from "next-auth/providers/github";
 import Google from "next-auth/providers/google";
 import bcrypt from "bcryptjs";
+import { db } from "./lib/db";
 
 export default {
   providers: [
@@ -19,7 +19,6 @@ export default {
     }),
     Credentials({
       async authorize(credentials: any): Promise<any> {
-        await dbConnect();
         const validateFields = LoginSchema.safeParse(credentials);
 
         if (validateFields.success) {

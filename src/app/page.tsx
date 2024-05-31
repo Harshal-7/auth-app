@@ -4,7 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { PrismaClient } from "@prisma/client";
-import dbConnect from "@/lib/dbConnect";
 
 export default function Home() {
   return (

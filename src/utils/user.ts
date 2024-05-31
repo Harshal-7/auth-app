@@ -1,9 +1,6 @@
 import { db } from "@/lib/db";
-import dbConnect from "@/lib/dbConnect";
 
 export const getUserByEmail = async (email: string) => {
-  await dbConnect();
-
   try {
     const user = await db.user.findUnique({
       where: {
@@ -21,8 +18,6 @@ export const getUserByEmail = async (email: string) => {
 };
 
 export const getUserByName = async (name: string) => {
-  await dbConnect();
-
   try {
     const user = await db.user.findUnique({
       where: {

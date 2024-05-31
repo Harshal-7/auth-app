@@ -4,11 +4,8 @@ import * as z from "zod";
 import { db } from "@/lib/db";
 import { RegisterSchema } from "@/schema/RegisterSchema";
 import bcrypt from "bcryptjs";
-import dbConnect from "@/lib/dbConnect";
 
 export const register = async (data: z.infer<typeof RegisterSchema>) => {
-  await dbConnect();
-
   const validateFields = RegisterSchema.safeParse(data);
 
   if (!validateFields.success) {

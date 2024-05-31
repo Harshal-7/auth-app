@@ -1,15 +1,12 @@
 "use server";
 
 import * as z from "zod";
-import dbConnect from "@/lib/dbConnect";
 import { LoginSchema } from "@/schema/LoginSchema";
 import { signIn } from "@/auth";
 import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
 import { AuthError } from "next-auth";
 
 export const login = async (data: z.infer<typeof LoginSchema>) => {
-  // await dbConnect();
-
   const validateFields = LoginSchema.safeParse(data);
 
   if (!validateFields.success) {
