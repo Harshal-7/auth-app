@@ -5,6 +5,7 @@ import { ThemeProvider } from "@/components/ui/theme-provider";
 import ToogleTheme from "@/components/toogle-theme";
 import { Toaster } from "@/components/ui/toaster";
 import { cn } from "@/lib/utils";
+import { Analytics } from "@vercel/analytics/react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -30,6 +31,7 @@ export default function RootLayout({
           {children}
           <ToogleTheme className="absolute top-4 right-4" />
           <Toaster />
+          <Analytics />
         </ThemeProvider>
       </body>
     </html>
