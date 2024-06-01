@@ -21,7 +21,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={cn("bg-zinc-100 dark:bg-zinc-900", inter.className)}>
+      <body
+        className={cn(
+          "bg-zinc-100 dark:bg-zinc-900 overflow-x-hidden",
+          inter.className
+        )}
+      >
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

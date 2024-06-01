@@ -18,8 +18,11 @@ import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { register } from "@/actions/register";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { Loader2 } from "lucide-react";
 
 const RegisterForm = () => {
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
   const { toast } = useToast();
 
@@ -33,6 +36,8 @@ const RegisterForm = () => {
   });
 
   const onSubmit = (data: z.infer<typeof RegisterSchema>) => {
+    setLoading(true);
+
     register(data).then((res) => {
       if (res.error) {
         toast({
@@ -45,9 +50,11 @@ const RegisterForm = () => {
           title: res.success,
           description: "Login to access dashboard",
         });
+        setLoading(false);
         router.replace(`/login`);
       }
     });
+    setLoading(false);
   };
 
   return (
@@ -104,7 +111,11 @@ const RegisterForm = () => {
               )}
             />
             <Button type="submit" className="w-full">
-              Create an account
+              {loading ? (
+                <Loader2 className="animate-spin w-5 h-5" />
+              ) : (
+                <span>Create an account</span>
+              )}
             </Button>
           </form>
         </Form>

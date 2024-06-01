@@ -18,10 +18,12 @@ import { Button } from "../ui/button";
 import { useToast } from "../ui/use-toast";
 import { login } from "@/actions/login";
 import { useSearchParams } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import FormError from "./form-error";
+import { Loader2 } from "lucide-react";
 
 const LoginForm = () => {
+  const [loading, setLoading] = useState(false);
   const searchParams = useSearchParams();
   var urlError =
     searchParams.get("error") === "OAuthAccountNotLinked"
@@ -39,6 +41,7 @@ const LoginForm = () => {
   });
 
   const onSubmit = async (data: z.infer<typeof LoginSchema>) => {
+    setLoading(true);
     login(data)
       .then((res) => {
         if (res?.error) {
@@ -56,7 +59,9 @@ const LoginForm = () => {
         toast({
           title: err.message,
         });
+        setLoading(false);
       });
+    setLoading(false);
   };
 
   return (
@@ -97,8 +102,13 @@ const LoginForm = () => {
               )}
             />
             <FormError message={urlError} />
-            <Button className="w-full" type="submit" variant="default">
-              Login
+
+            <Button type="submit" className="w-full">
+              {loading ? (
+                <Loader2 className="animate-spin w-5 h-5" />
+              ) : (
+                <span>Login</span>
+              )}
             </Button>
           </form>
         </Form>
